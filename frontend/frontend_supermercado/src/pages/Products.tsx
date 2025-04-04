@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Products.css"; // si preferís separar los estilos
+import { useNavigate } from "react-router-dom";
 
 type Producto = {
   id: number;
@@ -15,7 +16,7 @@ type Producto = {
 const Products = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:3001/api/productos")
       .then((res) => res.json())
@@ -30,7 +31,7 @@ const Products = () => {
   }, []);
 
   if (loading) return <p className="loading">Cargando productos...</p>;
-
+  
   return (
     <div className="products-container">
       <h1>Listado de Productos</h1>
@@ -61,7 +62,7 @@ const Products = () => {
                 <td>{prod.id_categoria}</td>
                 <td>{prod.activo ? "✅" : "❌"}</td>
                 <td>
-                  <button>Editar</button>
+                <button onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
                   <button>Eliminar</button>
                 </td>
               </tr>
