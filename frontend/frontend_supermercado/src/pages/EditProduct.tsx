@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import "./EditProduct.css";
 type Producto = {
   id: number;
   nombre: string;

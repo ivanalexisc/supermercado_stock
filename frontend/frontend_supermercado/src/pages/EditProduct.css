@@ -1,0 +1,46 @@
+
+.edit-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #4958af;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .edit-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .edit-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .edit-form input,
+  .edit-form select {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .edit-form label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+  }
+  
+  .edit-form button {
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }  
