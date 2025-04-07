@@ -55,9 +55,12 @@ const login = async (req, res) => {
     });
 
   } catch (error) {
+    console.error("Error en login:", error);
     res.status(500).json({ message: 'Error en el servidor', error: error.message });
   }
 };
+
+
 
 module.exports = {
   register,

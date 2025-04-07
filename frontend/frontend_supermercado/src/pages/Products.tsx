@@ -16,6 +16,7 @@ type Producto = {
 const Products = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const eliminarProducto = async (id: number) => {
     const confirmar = window.confirm("¿Estás seguro de que querés desactivar este producto?");
@@ -40,6 +41,12 @@ const Products = () => {
     }
   };
   useEffect(() => {
+    const user = localStorage.getItem("usuario");
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      setIsAdmin(parsedUser.es_admin === true);
+    }
+
     fetch("http://localhost:3001/api/productos")
       .then((res) => res.json())
       .then((data) => {
@@ -85,10 +92,13 @@ const Products = () => {
                 <td>{prod.id_categoria}</td>
                 <td>{prod.activo ? "✅" : "❌"}</td>
                 <td>
-                <button onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
-                <button onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
-
-                </td>
+  {isAdmin && (
+    <>
+      <button onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
+      <button onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
+    </>
+  )}
+</td>
               </tr>
             ))}
           </tbody>
