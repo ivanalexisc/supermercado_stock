@@ -1,7 +1,5 @@
 const { Producto } = require('../models');
 
-
-
 module.exports = {
   async getAll(req, res) {
     try {
@@ -48,6 +46,4 @@ module.exports = {
       res.status(500).json({ error: 'Error al eliminar el producto' });
     }
   },
- 
-
 };

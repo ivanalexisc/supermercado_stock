@@ -1,12 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const db = require("./src/models");
+const authRoutes = require('./src/routes/auth')
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.use("/api/productos", require("./src/routes/productos"));
+app.use('/auth', authRoutes);
 
 // Probar conexión y sincronizar modelos
 db.sequelize.authenticate()

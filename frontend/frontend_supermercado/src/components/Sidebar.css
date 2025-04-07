@@ -51,6 +51,30 @@
     z-index: 20;
     cursor: pointer;
   }
+  .usuario-info {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    color: #fff;
+    gap: 0.5rem;
+  }
+  
+  .logout-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.5rem;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
   
   @media (min-width: 768px) {
     .menu-btn {
