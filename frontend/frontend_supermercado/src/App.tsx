@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Settings from "./pages/Settings";
 import EditProduct from "./pages/EditProduct";
+import CreateProduct from "./pages/CreateProduct";
 
 const App = () => {
   
@@ -17,7 +18,7 @@ const App = () => {
             <Route path="/productos" element={<Products />} />
             <Route path="/configuracion" element={<Settings />} />
             <Route path="/edit/:id" element={<EditProduct />} />
-            
+            <Route path="/create" element={<CreateProduct />} />
           </Routes>
         </div>
       </div>

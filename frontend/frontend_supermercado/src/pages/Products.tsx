@@ -58,6 +58,7 @@ const Products = () => {
   return (
     <div className="products-container">
       <h1>Listado de Productos</h1>
+      <button onClick={() => navigate("/create")} className="create-btn">Agregar Producto</button>
       <div className="table-wrapper">
         <table className="styled-table">
           <thead>
