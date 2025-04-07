@@ -62,6 +62,7 @@ const EditProduct = () => {
   if (!producto) return <p>Cargando producto...</p>;
   console.log(producto);
   return (
+    
     <div className="edit-form">
       <h2>Editar Producto</h2>
       <form onSubmit={handleSubmit}>
@@ -78,6 +79,7 @@ const EditProduct = () => {
         <button type="submit">Guardar Cambios</button>
       </form>
     </div>
+    
   );
 };
 

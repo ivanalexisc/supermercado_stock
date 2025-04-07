@@ -1,12 +1,17 @@
 
 .edit-form {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #4958af;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  }
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #4958af;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
   
   .edit-form h2 {
     text-align: center;
