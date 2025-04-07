@@ -6,6 +6,7 @@ import Settings from "./pages/Settings";
 import EditProduct from "./pages/EditProduct";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import CreateProduct from "./pages/CreateProduct"; // <- nueva importación
 
 const App = () => {
   const isAuthenticated = !!localStorage.getItem("token");
@@ -13,16 +14,12 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Redirecciona según esté logueado o no */}
         <Route path="/" element={
           isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/login" />
         } />
-
-        {/* Login y registro (públicos) */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Rutas privadas con layout */}
         <Route path="/home" element={
           isAuthenticated ? (
             <WithSidebar><Home /></WithSidebar>
@@ -43,12 +40,16 @@ const App = () => {
             <WithSidebar><EditProduct /></WithSidebar>
           ) : <Navigate to="/login" />
         } />
+        <Route path="/crear-producto" element={
+          isAuthenticated ? (
+            <WithSidebar><CreateProduct /></WithSidebar>
+          ) : <Navigate to="/login" />
+        } />
       </Routes>
     </Router>
   );
 };
 
-// Layout con Sidebar
 const WithSidebar = ({ children }: { children: React.ReactNode }) => (
   <div style={{ display: "flex" }}>
     <Sidebar />

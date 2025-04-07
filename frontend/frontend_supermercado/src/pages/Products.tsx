@@ -65,6 +65,15 @@ const Products = () => {
   return (
     <div className="products-container">
       <h1>Listado de Productos</h1>
+  
+      {isAdmin && (
+        <div style={{ marginBottom: "20px" }}>
+          <button onClick={() => navigate("/crear-producto")}>
+            ➕ Crear nuevo producto
+          </button>
+        </div>
+      )}
+  
       <div className="table-wrapper">
         <table className="styled-table">
           <thead>
@@ -83,7 +92,11 @@ const Products = () => {
             {productos.map((prod) => (
               <tr key={prod.id}>
                 <td>
-                  <img src={prod.imagen_url} alt={prod.nombre} className="product-img" />
+                  <img
+                    src={prod.imagen_url}
+                    alt={prod.nombre}
+                    className="product-img"
+                  />
                 </td>
                 <td>{prod.nombre}</td>
                 <td>{prod.descripcion}</td>
@@ -92,13 +105,13 @@ const Products = () => {
                 <td>{prod.id_categoria}</td>
                 <td>{prod.activo ? "✅" : "❌"}</td>
                 <td>
-  {isAdmin && (
-    <>
-      <button onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
-      <button onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
-    </>
-  )}
-</td>
+                  {isAdmin && (
+                    <>
+                      <button onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
+                      <button onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
+                    </>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -106,6 +119,7 @@ const Products = () => {
       </div>
     </div>
   );
+  
 };
 
 export default Products;
