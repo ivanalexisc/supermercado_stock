@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Products.css"; // si preferís separar los estilos
+import { useNavigate } from "react-router-dom";
 
 type Producto = {
   id: number;
@@ -15,7 +16,29 @@ type Producto = {
 const Products = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
+  const eliminarProducto = async (id: number) => {
+    const confirmar = window.confirm("¿Estás seguro de que querés desactivar este producto?");
+    if (!confirmar) return;
+  
+    try {
+      const response = await fetch(`http://localhost:3001/api/productos/${id}`, {
+        method: "DELETE",
+      });
+  
+      if (response.ok) {
+        // Filtramos el producto eliminado del estado
+        setProductos(productos.filter((prod) => prod.id !== id));
+      } else {
+        const errorData = await response.json();
+        console.error("Error al desactivar:", errorData);
+        alert("Error al desactivar el producto");
+      }
+    } catch (error) {
+      console.error("Error en la solicitud DELETE:", error);
+      alert("Ocurrió un error al desactivar el producto");
+    }
+  };
   useEffect(() => {
     fetch("http://localhost:3001/api/productos")
       .then((res) => res.json())
@@ -28,9 +51,10 @@ const Products = () => {
         setLoading(false);
       });
   }, []);
-
+  
+  
   if (loading) return <p className="loading">Cargando productos...</p>;
-
+  
   return (
     <div className="products-container">
       <h1>Listado de Productos</h1>
@@ -61,8 +85,9 @@ const Products = () => {
                 <td>{prod.id_categoria}</td>
                 <td>{prod.activo ? "✅" : "❌"}</td>
                 <td>
-                  <button>Editar</button>
-                  <button>Eliminar</button>
+                <button onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
+                <button onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
+
                 </td>
               </tr>
             ))}
