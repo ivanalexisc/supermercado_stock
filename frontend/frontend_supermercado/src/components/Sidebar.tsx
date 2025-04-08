@@ -1,13 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  Home,
-  Boxes,
-  Settings,
-  Menu,
-  LogOut,
-  User
-} from "lucide-react";
-import { useState, useEffect} from "react";
+import { Home, Boxes, Settings, Menu, LogOut, User } from "lucide-react";
+import { useState, useEffect } from "react";
 import "./Sidebar.css";
 
 const Sidebar = () => {
@@ -63,6 +56,12 @@ const Sidebar = () => {
               <NavLink to="/configuracion">
                 <Settings size={20} />
                 <span>Configuración</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/ventas/cargar">
+                <Boxes size={20} />
+                <span>Cargar Venta</span>
               </NavLink>
             </li>
             <li>

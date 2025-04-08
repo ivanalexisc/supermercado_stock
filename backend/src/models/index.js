@@ -19,7 +19,20 @@ db.Sequelize = Sequelize;
 
 db.Producto = require('./producto')(sequelize, DataTypes);
 db.Usuario = require('./usuario')(sequelize, DataTypes);
+db.Pedido = require('./pedido')(sequelize, DataTypes);
+db.DetallePedido = require('./detalle_pedido')(sequelize, DataTypes);
 
-// Asociaciones si hay relaciones entre modelos
+// Relacion Usuario - Pedido
+db.Usuario.hasMany(db.Pedido, { foreignKey: 'id_usuario' });
+db.Pedido.belongsTo(db.Usuario, { foreignKey: 'id_usuario' });
+
+// Relacion Pedido - DetallePedido
+db.Pedido.hasMany(db.DetallePedido, { foreignKey: 'id_pedido' });
+db.DetallePedido.belongsTo(db.Pedido, { foreignKey: 'id_pedido' });
+
+// Relacion Producto - DetallePedido
+db.Producto.hasMany(db.DetallePedido, { foreignKey: 'id_producto' });
+db.DetallePedido.belongsTo(db.Producto, { foreignKey: 'id_producto' });
 
 module.exports = db;
+
