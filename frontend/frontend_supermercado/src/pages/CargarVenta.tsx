@@ -4,14 +4,14 @@ type Producto = {
   id: number;
   nombre: string;
   stock: number;
-  precio:number;
+  precio: number;
 };
 
 type ItemVenta = {
   id_producto: number;
   nombre: string;
   cantidad: number;
-  precio:number;
+  precio: number;
 };
 
 const CargarVenta = () => {
@@ -19,6 +19,7 @@ const CargarVenta = () => {
   const [itemSeleccionado, setItemSeleccionado] = useState<number>(0);
   const [cantidad, setCantidad] = useState<number>(1);
   const [itemsVenta, setItemsVenta] = useState<ItemVenta[]>([]);
+  const [stockDisponible, setStockDisponible] = useState<number>(0);
 
   const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
 
@@ -29,10 +30,25 @@ const CargarVenta = () => {
       .catch((error) => console.error("Error cargando productos:", error));
   }, []);
 
+  useEffect(() => {
+    const prod = productos.find((p) => p.id === itemSeleccionado);
+    if (prod) {
+      setStockDisponible(prod.stock);
+      if (cantidad > prod.stock) {
+        setCantidad(prod.stock); // Limita automáticamente si ya se pasó
+      }
+    }
+  }, [itemSeleccionado, productos, cantidad]);
+
   const agregarItem = () => {
-    const producto = productos.find(p => p.id === itemSeleccionado);
+    const producto = productos.find((p) => p.id === itemSeleccionado);
     if (!producto || cantidad <= 0 || cantidad > producto.stock) {
       return alert("Cantidad inválida o producto no seleccionado");
+    }
+
+    const yaExiste = itemsVenta.find((item) => item.id_producto === producto.id);
+    if (yaExiste) {
+      return alert("Este producto ya fue agregado a la venta");
     }
 
     setItemsVenta((prev) => [
@@ -45,14 +61,16 @@ const CargarVenta = () => {
       },
     ]);
     setCantidad(1);
+    setItemSeleccionado(0);
   };
 
   const enviarVenta = async () => {
     const payload = {
       id_usuario: usuario.id,
-      productos: itemsVenta.map(({ id_producto, cantidad }) => ({
+      productos: itemsVenta.map(({ id_producto, cantidad, precio }) => ({
         id_producto,
         cantidad,
+        precio_unitario: precio,
       })),
     };
 
@@ -85,18 +103,22 @@ const CargarVenta = () => {
           onChange={(e) => setItemSeleccionado(Number(e.target.value))}
         >
           <option value={0}>Seleccionar producto</option>
-          {productos.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.nombre} (Stock: {p.stock})
-            </option>
-          ))}
+          {productos
+            .filter((p) => p.stock > 0)
+            .map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.nombre} (Stock: {p.stock})
+              </option>
+            ))}
         </select>
 
         <input
           type="number"
           min={1}
+          max={stockDisponible}
           value={cantidad}
           onChange={(e) => setCantidad(Number(e.target.value))}
+          disabled={itemSeleccionado === 0}
         />
 
         <button onClick={agregarItem}>Agregar</button>
@@ -118,7 +140,7 @@ const CargarVenta = () => {
               <td>{item.nombre}</td>
               <td>{item.cantidad}</td>
               <td>${item.precio.toFixed(2)}</td>
-            <td>${(item.cantidad * item.precio).toFixed(2)}</td>
+              <td>${(item.cantidad * item.precio).toFixed(2)}</td>
             </tr>
           ))}
         </tbody>
