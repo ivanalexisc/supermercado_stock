@@ -14,5 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: false,
   });
 
+  Usuario.associate = (models) => {
+    Usuario.hasMany(models.Pedido, {
+      foreignKey: "id_usuario",
+    });
+  };
+
   return Usuario;
 };
