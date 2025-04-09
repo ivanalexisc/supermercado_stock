@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Products.css"; // si preferís separar los estilos
+import "./Products.css";
 import { useNavigate } from "react-router-dom";
 
 type Producto = {
@@ -107,8 +107,8 @@ const Products = () => {
                 <td>
                   {isAdmin && (
                     <>
-                      <button onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
-                      <button onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
+                      <button className="confirm-button" onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
+                      <button className="eliminar-button" onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
                     </>
                   )}
                 </td>

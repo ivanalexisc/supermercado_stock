@@ -1,0 +1,95 @@
+.venta-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 24px;
+    background-color: #fdfdfd;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .venta-container h2,
+  .venta-container h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .select-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .select-row select,
+  .select-row input {
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .select-row button {
+    background-color: var(--color-primario);
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .select-row button:hover {
+    background-color: var(--color-primario-hover);
+  }
+  
+  .venta-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .venta-table th,
+  .venta-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .venta-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .confirm-button {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    background-color: var(--color-exito);
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  
+  .confirm-button:hover {
+    background-color: var(--color-exito-hover);
+  }
+  .eliminar-button{
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    background-color: var(--color-peligro);
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .eliminar-button:hover{
+    background-color: var(--color-peligro-hover);
+  }

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import "./cargarVenta.css";
+import Alert from '@mui/material/Alert';
 
 type Producto = {
   id: number;
@@ -20,6 +22,7 @@ const CargarVenta = () => {
   const [cantidad, setCantidad] = useState<number>(1);
   const [itemsVenta, setItemsVenta] = useState<ItemVenta[]>([]);
   const [stockDisponible, setStockDisponible] = useState<number>(0);
+  const [alerta, setAlerta] = useState<null | "success" | "error">(null);
 
   const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
 
@@ -82,22 +85,41 @@ const CargarVenta = () => {
         },
         body: JSON.stringify(payload),
       });
-
+    
       if (!res.ok) throw new Error("Error al enviar la venta");
-
-      alert("Venta registrada con éxito");
+    
+      setAlerta("success");
       setItemsVenta([]);
     } catch (error) {
       console.error(error);
-      alert("Error al registrar la venta");
+      setAlerta("error");
     }
   };
 
   return (
     <div className="venta-container">
       <h2>Registrar nueva venta</h2>
+      {alerta === "success" && (
+  <Alert
+    severity="success"
+    onClose={() => setAlerta(null)}
+    style={{ marginBottom: "1rem" }}
+  >
+    Venta registrada con éxito
+  </Alert>
+)}
 
-      <div>
+{alerta === "error" && (
+  <Alert
+    severity="error"
+    onClose={() => setAlerta(null)}
+    style={{ marginBottom: "1rem" }}
+  >
+    Error al registrar la venta
+  </Alert>
+)}
+  
+      <div className="select-row">
         <select
           value={itemSeleccionado}
           onChange={(e) => setItemSeleccionado(Number(e.target.value))}
@@ -111,7 +133,7 @@ const CargarVenta = () => {
               </option>
             ))}
         </select>
-
+  
         <input
           type="number"
           min={1}
@@ -120,12 +142,13 @@ const CargarVenta = () => {
           onChange={(e) => setCantidad(Number(e.target.value))}
           disabled={itemSeleccionado === 0}
         />
-
+  
         <button onClick={agregarItem}>Agregar</button>
       </div>
-
+  
       <h3>Productos en la venta</h3>
-      <table>
+  
+      <table className="venta-table">
         <thead>
           <tr>
             <th>Producto</th>
@@ -145,9 +168,11 @@ const CargarVenta = () => {
           ))}
         </tbody>
       </table>
-
+  
       {itemsVenta.length > 0 && (
-        <button onClick={enviarVenta}>Confirmar venta</button>
+        <button className="confirm-button" onClick={enviarVenta}>
+          Confirmar venta
+        </button>
       )}
     </div>
   );
