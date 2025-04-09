@@ -3,6 +3,7 @@ const cors = require("cors");
 const db = require("./src/models");
 const authRoutes = require('./src/routes/auth')
 const ventasRoutes = require('./src/routes/ventas');
+const pedidosRoutes = require('./src/routes/pedidos');
 
 const app = express();
 app.use(cors());
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use("/api/productos", require("./src/routes/productos"));
 app.use('/auth', authRoutes);
 app.use('/api/ventas', ventasRoutes);
+app.use('/api/pedidos', pedidosRoutes);
 
 
 // Probar conexión y sincronizar modelos

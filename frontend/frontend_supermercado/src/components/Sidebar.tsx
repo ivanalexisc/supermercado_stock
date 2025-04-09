@@ -65,6 +65,12 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink to="/pedidos">
+                <Boxes size={20} />
+                <span>Pedidos</span>
+              </NavLink>
+            </li>
+            <li>
               <button onClick={handleLogout} className="logout-btn">
                 <LogOut size={20} />
                 <span>Cerrar sesión</span>

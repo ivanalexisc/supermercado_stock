@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreateProduct from "./pages/CreateProduct"; 
 import CargarVenta from "./pages/CargarVenta";
+import Pedidos from "./pages/Pedidos";
 
 const App = () => {
   const isAuthenticated = !!localStorage.getItem("token");
@@ -49,6 +50,11 @@ const App = () => {
         <Route path="/ventas/cargar" element={
           isAuthenticated ? (
             <WithSidebar><CargarVenta /></WithSidebar>
+          ) : <Navigate to="/login" />
+        } />
+        <Route path="/pedidos" element={
+          isAuthenticated ? (
+            <WithSidebar><Pedidos/></WithSidebar>
           ) : <Navigate to="/login" />
         } />
       </Routes>
