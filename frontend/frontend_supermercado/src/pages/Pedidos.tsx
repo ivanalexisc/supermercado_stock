@@ -15,7 +15,7 @@ const Pedidos = () => {
           id: p.id,
           fecha_pedido: p.fecha_pedido,
           total: parseFloat(p.total),
-          
+          usuario: p.Usuario?.nombre || "Desconocido",
           detalles: p.DetallePedidos.map((d) => ({
             id_producto: d.id_producto,
             nombre: d.Producto?.nombre || "Sin nombre",
