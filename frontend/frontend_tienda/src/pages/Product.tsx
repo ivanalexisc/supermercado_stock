@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
+import Cart from "../components/Cart";
 
 
 type Product = {
@@ -14,7 +15,9 @@ type Product = {
 const Products = () => {
   const [productos, setProductos] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-
+  type CartItem = Product & { cantidad: number };
+  const [cart, setCart] = useState<CartItem[]>([]);
+ 
   useEffect(() => {
     fetch("http://localhost:3001/api/productos")
       .then((res) => res.json())
@@ -29,16 +32,61 @@ const Products = () => {
         setLoading(false);
       });
   }, []);
+  
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const handleAddToCart = (producto: Product) => {
-    console.log("Agregar al carrito:", producto);
-    // Podés guardar en localStorage o usar contexto
+    setCart((prevCart) => {
+      const existing = prevCart.find((item) => item.id === producto.id);
+      if (existing) {
+        return prevCart.map((item) =>
+          item.id === producto.id
+            ? { ...item, cantidad: (item.cantidad || 1) + 1 }
+            : item
+        );
+      } else {
+        return [...prevCart, { ...producto, cantidad: 1 }];
+      }
+    });
   };
+  
 
+  const handleRemoveFromCart = (id: number) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === id ? { ...item, cantidad: item.cantidad - 1 } : item
+        )
+        .filter((item) => item.cantidad > 0)
+    );
+  };
+  
+
+  const handleClearCart = () => {
+    setCart([]);
+  };
   if (loading) return <p className="loading">Cargando productos...</p>;
 
   return (
+    
     <div className="container mt-4">
+    <button
+  className="btn btn-outline-dark position-fixed top-0 end-0 m-4 z-3"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#cartSidebar"
+>
+🛒 Ver carrito ({cart.reduce((sum, item) => sum + item.cantidad, 0)})
+</button>
     <h1 className="mb-4 text-center">🛍️ Productos disponibles</h1>
     <div className="row g-4">
       {productos.map((prod) => (
@@ -47,6 +95,12 @@ const Products = () => {
         </div>
       ))}
     </div>
+    <hr />
+    <Cart
+        cartItems={cart}
+        onRemoveFromCart={handleRemoveFromCart}
+        onClearCart={handleClearCart}
+      />
   </div>
   );
 };
