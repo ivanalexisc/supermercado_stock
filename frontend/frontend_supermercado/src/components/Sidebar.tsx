@@ -23,12 +23,13 @@ const Sidebar = () => {
 
   return (
     <>
+      
+
+      <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
       <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
         <Menu size={28} />
       </button>
-
-      <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        <h2>Mi Panel</h2>
+      <h2 className="titulo-sidebar">Mi Panel</h2>
 
         {/* Info del usuario */}
         {usuario && (

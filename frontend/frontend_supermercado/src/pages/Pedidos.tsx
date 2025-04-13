@@ -28,7 +28,7 @@ const Pedidos = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <h2>Lista de Pedidos</h2>
       {pedidos.length === 0 ? (
         <p>No hay pedidos aún.</p>
