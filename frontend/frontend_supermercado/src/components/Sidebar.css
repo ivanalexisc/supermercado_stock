@@ -1,89 +1,97 @@
+/* Sidebar base */
 .sidebar {
-    width: 220px;
-    background-color: #1e1e2f;
-    color: white;
-    height: 100vh;
-    padding: 1rem;
-    transition: transform 0.3s ease;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 10;
+  background-color: #1e1e2f;
+  color: white;
+  height: 100vh;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow: hidden;
+  width: 250px; /* ancho completo */
+}
+
+/* Colapsado */
+.sidebar.closed {
+  width: 70px;
+}
+
+/* Botón de menú */
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+/* Usuario */
+.usuario-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar.closed .usuario-info span {
+  display: none;
+}
+
+/* Nav */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin: 10px 0;
+}
+
+nav a, .logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+nav a:hover, .logout-btn:hover {
+  background-color: #2c2c40;
+}
+
+.sidebar.closed nav a span,
+.sidebar.closed .logout-btn span {
+  display: none;
+}
+
+/* Responsive: en mobile, sidebar ocupa el 100% cuando está abierto */
+@media screen and (min-width: 768px) {
+  .sidebar {
+    position: absolute;
+    z-index: 1000;
+    height: 100%;
+    width: 200px;
   }
-  
   .sidebar.closed {
-    transform: translateX(-100%);
+    width: 60px;
   }
-  
-  .sidebar h2 {
-    margin-bottom: 2rem;
+   .sidebar.closed .titulo-sidebar {
+    display: none;
   }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    margin-bottom: 1.2rem;
-  }
-  
-  .sidebar a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .sidebar a.active {
-    font-weight: bold;
-    color: #61dafb;
-  }
-  
+
   .menu-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: none;
-    border: none;
-    color: white;
-    z-index: 20;
-    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: -40px;
+    background: #1e1e2f;
+    border-radius: 50%;
+    padding: 5px;
   }
-  .usuario-info {
-    display: flex;
-    align-items: center;
-    margin: 1rem 0;
-    color: #fff;
-    gap: 0.5rem;
-  }
-  
-  .logout-btn {
-    display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 0.5rem;
-    width: 100%;
-    text-align: left;
-  }
-  
-  .logout-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  
-  @media (min-width: 768px) {
-    .menu-btn {
-      display: none;
-    }
-  
-    .sidebar {
-      transform: translateX(0);
-      position: relative;
-    }
-  }
-  
+}
