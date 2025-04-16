@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 type Product = {
   id: number;
   nombre: string;
@@ -15,6 +16,7 @@ type Props = {
 const ProductCard = ({ product, onAddToCart }: Props) => {
   return (
     <div className="card h-100">
+      <Link to={`/producto/${product.id}`} className="text-decoration-none text-dark">
       <img
         src={product.imagen_url}
         className="card-img-top"
@@ -26,6 +28,8 @@ const ProductCard = ({ product, onAddToCart }: Props) => {
         <p className="card-text fw-bold text-success">
           ${Number(product.precio).toFixed(2)}
         </p>
+        </div>
+        </Link>
         <button
           className="btn btn-primary mt-auto"
           onClick={() => onAddToCart(product)}
@@ -33,7 +37,6 @@ const ProductCard = ({ product, onAddToCart }: Props) => {
           Agregar al carrito
         </button>
       </div>
-    </div>
   );
 };
 
