@@ -1,17 +1,16 @@
 
-import './App.css'
-import AppRoutes from './Routes/AppRoutes'
-
-
+import Cart from "./components/Cart";
+import NavBar from "./components/NavBar";
+import AppRoutes from "./Routes/AppRoutes";
 
 function App() {
-  
-
   return (
     <>
-    <AppRoutes/>
+      <NavBar />
+      <AppRoutes />
+      <Cart />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
