@@ -74,10 +74,13 @@ nav a:hover, .logout-btn:hover {
 /* Responsive: en mobile, sidebar ocupa el 100% cuando está abierto */
 @media screen and (min-width: 768px) {
   .sidebar {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     height: 100%;
     width: 200px;
+  }
+  .sidebar.closed .usuario-info{
+    display: none;
   }
   .sidebar.closed {
     width: 60px;
