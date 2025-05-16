@@ -74,8 +74,10 @@ const Products = () => {
         </div>
       )}
   
-      <div className="table-wrapper">
-        <table className="styled-table">
+      {/* Tabla para desktop */}
+            <div className="table-wrapper">
+            <div className="table-wrapper">
+        <table className="productos-table">
           <thead>
             <tr>
               <th>Imagen</th>
@@ -85,40 +87,57 @@ const Products = () => {
               <th>Stock</th>
               <th>Categoría</th>
               <th>Activo</th>
-              <th>Acciones</th>
+              {isAdmin && <th>Acciones</th>}
             </tr>
           </thead>
           <tbody>
             {productos.map((prod) => (
               <tr key={prod.id}>
-                <td>
-                  <img
-                    src={prod.imagen_url}
-                    alt={prod.nombre}
-                    className="product-img"
-                  />
-                </td>
+                <td><img src={prod.imagen_url} alt={prod.nombre} style={{ width: "50px", height: "50px", objectFit: "cover" }} /></td>
                 <td>{prod.nombre}</td>
                 <td>{prod.descripcion}</td>
                 <td>${parseFloat(prod.precio).toFixed(2)}</td>
                 <td>{prod.stock}</td>
                 <td>{prod.id_categoria}</td>
                 <td>{prod.activo ? "✅" : "❌"}</td>
-                <td>
-                  {isAdmin && (
-                    <>
-                      <button className="confirm-button" onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
-                      <button className="eliminar-button" onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
-                    </>
-                  )}
-                </td>
+                {isAdmin && (
+                  <td>
+                    <button onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
+                    <button onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
+      </div>
+  
+      {/* Tarjetas para mobile */}
+      <div className="cards-wrapper">
+        {productos.map((prod) => (
+  <div key={prod.id} className="product-card">
+            <img src={prod.imagen_url} alt={prod.nombre} className="product-img" />
+            <div className="card-info">
+              <p><strong>Nombre:</strong> {prod.nombre}</p>
+              <p><strong>Descripción:</strong> {prod.descripcion}</p>
+              <p><strong>Precio:</strong> ${parseFloat(prod.precio).toFixed(2)}</p>
+              <p><strong>Stock:</strong> {prod.stock}</p>
+              <p><strong>Categoría:</strong> {prod.id_categoria}</p>
+              <p><strong>Activo:</strong> {prod.activo ? "✅" : "❌"}</p>
+              {isAdmin && (
+                <div className="card-actions">
+                  <button className="confirm-button" onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
+                  <button className="eliminar-button" onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
+  
   
 };
 

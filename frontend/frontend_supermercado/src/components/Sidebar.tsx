@@ -26,21 +26,23 @@ const Sidebar = () => {
       
 
       <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-      <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
-        <Menu size={28} />
-      </button>
       <h2 className="titulo-sidebar">Mi Panel</h2>
+      
 
         {/* Info del usuario */}
-        {usuario && (
-          <div className="usuario-info">
-            <User size={18} />
-            <span>{usuario.nombre}</span>
-          </div>
-        )}
+      
 
         <nav>
           <ul>
+          <li>
+              {/* Info del usuario */}
+        {usuario && (
+          <div className="usuario-info">
+            <User size={20} />
+            <span>Bienvenido {usuario.nombre}</span>
+          </div>
+        )}
+            </li>
             <li>
               <NavLink to="/" end>
                 <Home size={20} />
@@ -76,6 +78,11 @@ const Sidebar = () => {
                 <LogOut size={20} />
                 <span>Cerrar sesión</span>
               </button>
+            </li>
+            <li>
+            <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
+        <Menu size={28} />
+      </button>
             </li>
           </ul>
         </nav>
