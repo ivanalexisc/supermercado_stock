@@ -48,12 +48,12 @@ const Login = () => {
         width: "320px",
       }}>
         <h2 style={{ textAlign: "center", color: "#0d6efd", marginBottom: "30px" }}>
-          Sign In
+          Ingresar
         </h2>
 
         <input
           type="email"
-          placeholder="E-mail"
+          placeholder="Ingrese su E-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -68,7 +68,7 @@ const Login = () => {
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Ingrese su Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -89,7 +89,7 @@ const Login = () => {
           color: "#0d6efd",
           textDecoration: "none",
         }}>
-          Forgot Password?
+          Olvidó su contraseña?
         </a>
 
         <button type="submit" style={{
@@ -104,42 +104,15 @@ const Login = () => {
           marginBottom: "20px",
           boxShadow: "0 4px 10px rgba(0,0,0,0.1)"
         }}>
-          Sign In
+          Ingresar
         </button>
 
-        <p style={{ textAlign: "center", fontSize: "12px", marginBottom: "10px" }}>
-          Or Sign in with
-        </p>
-
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "15px",
-          marginBottom: "20px",
-        }}>
-          <button style={socialButtonStyle}>G</button>
-          <button style={socialButtonStyle}></button>
-          <button style={socialButtonStyle}>X</button>
-        </div>
-
-        <p style={{ fontSize: "10px", textAlign: "center", color: "#0d6efd" }}>
-          Learn user licence agreement
-        </p>
+        
       </form>
     </div>
   );
 };
 
-const socialButtonStyle = {
-  background: "#fff",
-  border: "none",
-  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  borderRadius: "50%",
-  width: "35px",
-  height: "35px",
-  cursor: "pointer",
-  fontSize: "16px",
-  fontWeight: "bold",
-};
+
 
 export default Login;
