@@ -30,4 +30,14 @@ export interface PedidoAPI {
       precio_unitario: number;
     }[];
   }
+  export interface Producto {
+    id: number;
+  nombre: string;
+  descripcion: string;
+  precio: string;
+  stock: number;
+  id_categoria: number;
+  imagen_url: string;
+  activo: boolean;
+  }
   

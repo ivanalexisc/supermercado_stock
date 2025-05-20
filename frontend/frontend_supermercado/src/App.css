@@ -12,3 +12,21 @@
     --color-borde: #dee2e6;
   }
   
+  .principal {
+    flex: 1;
+  padding: 20px;
+  overflow: auto;
+  }
+  
+
+/* Media query para pantallas >= 768px */
+@media (min-width: 768px) {
+  .principal {
+    margin-left: 25vw;
+  }
+}
+@media (min-width: 1024px) {
+  .principal {
+    margin-left: 0vw;
+  }
+}

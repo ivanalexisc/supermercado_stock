@@ -1,16 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./EditProduct.css";
-type Producto = {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  precio: string;
-  stock: number;
-  id_categoria: number;
-  imagen_url: string;
-  activo: boolean;
-};
+import {Producto} from '../types'
+
 
 const EditProduct = () => {
   const { id } = useParams();

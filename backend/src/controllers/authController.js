@@ -60,10 +60,27 @@ const login = async (req, res) => {
   }
 };
 
+// Crear Admin
+// const crearAdmin = async (req, res) => {
+//   try {
+//     const hashedPassword = await bcrypt.hash('admin123', 10);
+//     const admin = await Usuario.create({
+//       nombre: 'Administrador',
+//       email: 'admin@admin.com',
+//       password: hashedPassword,
+//       direccion: 'Oficina central',
+//       telefono: '123456789',
+//       es_admin: true
+//     });
 
-
+//     res.status(201).json({ message: 'Admin creado con éxito', admin });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Error al crear admin', error: error.message });
+//   }
+// };
 
 module.exports = {
   register,
   login
+  // crearAdmin 
 };

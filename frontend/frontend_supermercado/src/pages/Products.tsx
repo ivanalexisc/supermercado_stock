@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
 import "./Products.css";
 import { useNavigate } from "react-router-dom";
+import {Producto} from '../types'
 
-type Producto = {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  precio: string;
-  stock: number;
-  id_categoria: number;
-  imagen_url: string;
-  activo: boolean;
-};
+
 
 const Products = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
