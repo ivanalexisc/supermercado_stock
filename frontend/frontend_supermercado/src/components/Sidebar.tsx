@@ -22,72 +22,63 @@ const Sidebar = () => {
   };
 
   return (
-    <>
-      
-
-      <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-      <h2 className="titulo-sidebar">Mi Panel</h2>
-      
-
-        {/* Info del usuario */}
-      
-
-        <nav>
-          <ul>
-          <li>
-              {/* Info del usuario */}
+    <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
+      <div className="desktop-only">
+        <h2 className="titulo-sidebar">Mi Panel</h2>
         {usuario && (
           <div className="usuario-info">
             <User size={20} />
             <span>Bienvenido {usuario.nombre}</span>
           </div>
         )}
-            </li>
-            <li>
-              <NavLink to="/" end>
-                <Home size={20} />
-                <span>Inicio</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/productos">
-                <Boxes size={20} />
-                <span>Productos</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/configuracion">
-                <Settings size={20} />
-                <span>Configuración</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/ventas/cargar">
-                <Boxes size={20} />
-                <span>Cargar Venta</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/pedidos">
-                <Boxes size={20} />
-                <span>Pedidos</span>
-              </NavLink>
-            </li>
-            <li>
-              <button onClick={handleLogout} className="logout-btn">
-                <LogOut size={20} />
-                <span>Cerrar sesión</span>
-              </button>
-            </li>
-            <li>
-            <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
-        <Menu size={28} />
-      </button>
-            </li>
-          </ul>
-        </nav>
       </div>
-    </>
+
+      <nav>
+        <ul>
+          <li>
+            <NavLink to="/" end>
+              <Home size={24} />
+              <span>Inicio</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/productos">
+              <Boxes size={24} />
+              <span>Productos</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/configuracion">
+              <Settings size={24} />
+              <span>Configuración</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/ventas/cargar">
+              <Boxes size={24} />
+              <span>Ventas</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/pedidos">
+              <Boxes size={24} />
+              <span>Pedidos</span>
+            </NavLink>
+          </li>
+          <li>
+            <button onClick={handleLogout} className="logout-btn">
+              <LogOut size={24} />
+              <span>Cerrar sesión</span>
+            </button>
+          </li>
+          <li className="desktop-only">
+            <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
+              <Menu size={28} />
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
   );
 };
 

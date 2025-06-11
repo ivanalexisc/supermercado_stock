@@ -93,3 +93,52 @@
   .eliminar-button:hover{
     background-color: var(--color-peligro-hover);
   }
+
+.venta-total {
+  margin: 1rem 0 0.5rem 0;
+  font-size: 1.2rem;
+  text-align: right;
+  color: #222;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .venta-container {
+    max-width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .venta-container h2,
+  .venta-container h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .select-row {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .venta-table {
+    font-size: 0.85rem;
+    min-width: 400px;
+  }
+  .table-container {
+    overflow-x: auto;
+    width: 100%;
+  }
+  .venta-table th,
+  .venta-table td {
+    padding: 0.4rem;
+  }
+  .confirm-button, .eliminar-button {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+  }
+  .venta-total {
+    font-size: 1.05rem;
+    text-align: center;
+    margin: 0.75rem 0 0.5rem 0;
+  }
+}

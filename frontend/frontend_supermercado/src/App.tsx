@@ -63,11 +63,16 @@ const App = () => {
 };
 
 const WithSidebar = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: "flex", height: "100vh", width: "100%" }}>
+  <div style={{ 
+    display: "flex", 
+    minHeight: "100vh",
+    width: "100%",
+    position: "relative"
+  }}>
     <Sidebar />
-    <div className="principal">
+    <main className="principal">
       {children}
-    </div>
+    </main>
   </div>
 );
 

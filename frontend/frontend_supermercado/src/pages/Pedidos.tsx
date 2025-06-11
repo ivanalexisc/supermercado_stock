@@ -33,32 +33,34 @@ const Pedidos = () => {
       {pedidos.length === 0 ? (
         <p>No hay pedidos aún.</p>
       ) : (
-        pedidos.map((pedido) => (
-          <div key={pedido.id} style={{ border: "1px solid #ccc", margin: "10px 0", padding: "10px" }}>
-            <h4>Pedido #{pedido.id} - {new Date(pedido.fecha_pedido).toLocaleDateString()}</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Cantidad</th>
-                  <th>Precio unitario</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(pedido.detalles) && pedido.detalles.map((d, idx) => (
-                  <tr key={idx}>
-                    <td>{d.nombre}</td>
-                    <td>{d.cantidad}</td>
-                    <td>${d.precio_unitario.toFixed(2)}</td>
-                    <td>${(d.cantidad * d.precio_unitario).toFixed(2)}</td>
+        <div className="table-container">
+          {pedidos.map((pedido) => (
+            <div key={pedido.id} className="pedido-card">
+              <h4>Pedido #{pedido.id} - {new Date(pedido.fecha_pedido).toLocaleDateString()}</h4>
+              <table className="productos-table">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Subtotal</th>
                   </tr>
-                ))}
-                <p><strong>Total:</strong> ${Number(pedido.total).toFixed(2)}</p>
-              </tbody>
-            </table>
-          </div>
-        ))
+                </thead>
+                <tbody>
+                  {Array.isArray(pedido.detalles) && pedido.detalles.map((d, idx) => (
+                    <tr key={idx}>
+                      <td>{d.nombre}</td>
+                      <td>{d.cantidad}</td>
+                      <td>${d.precio_unitario.toFixed(2)}</td>
+                      <td>${(d.cantidad * d.precio_unitario).toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="total"><strong>Total:</strong> ${Number(pedido.total).toFixed(2)}</p>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

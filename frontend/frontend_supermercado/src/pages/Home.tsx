@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Grid, CircularProgress, Box } from '@mui/material';
+import { Grid, CircularProgress, Box, Fab } from '@mui/material';
 import StatCard from '../components/StarCard'; // ajustá el path si es necesario
-import { ShoppingCart, Store, MonetizationOn, Today } from '@mui/icons-material';
+import { ShoppingCart, Store, MonetizationOn, Today, Add } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 type DashboardStats = {
   productos: number;
@@ -13,6 +14,8 @@ type DashboardStats = {
 const Home = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [usuario, setUsuario] = useState<{ nombre: string } | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('http://localhost:3001/dashboard/stats') // cambiá el puerto si es necesario
@@ -25,6 +28,11 @@ const Home = () => {
         console.error('Error al obtener los datos del dashboard', err);
         setLoading(false);
       });
+    // Obtener usuario
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      setUsuario(JSON.parse(usuarioGuardado));
+    }
   }, []);
 
   if (loading || !stats) {
@@ -36,41 +44,40 @@ const Home = () => {
   }
 
   return (
-    <Box p={3}>
-      <Grid container spacing={3}>
-        <Grid >
-          <StatCard
-            title="Productos"
-            value={stats.productos}
-            icon={<Store />}
-            color="#1976d2"
-          />
-        </Grid>
-        <Grid >
-          <StatCard
-            title="Stock total"
-            value={stats.stock}
-            icon={<ShoppingCart />}
-            color="#388e3c"
-          />
-        </Grid>
-        <Grid >
-          <StatCard
-            title="Ventas Totales"
-            value={`$${stats.ventas}`}
-            icon={<MonetizationOn />}
-            color="#f57c00"
-          />
-        </Grid>
-        <Grid >
-          <StatCard
-            title="Ventas Hoy"
-            value={`$${stats.ventasHoy}`}
-            icon={<Today />}
-            color="#d32f2f"
-          />
-        </Grid>
-      </Grid>
+    <Box p={1}>
+      <div className="dashboard-header">
+        <h2>¡Hola, {usuario?.nombre || 'usuario'}!</h2>
+        <p>Resumen de tu supermercado</p>
+      </div>
+      <div className="dashboard-grid">
+        <StatCard
+          title="Productos"
+          value={stats.productos}
+          icon={<Store />}
+          color="#1976d2"
+        />
+        <StatCard
+          title="Stock total"
+          value={stats.stock}
+          icon={<ShoppingCart />}
+          color="#388e3c"
+        />
+        <StatCard
+          title="Ventas Totales"
+          value={`$${stats.ventas}`}
+          icon={<MonetizationOn />}
+          color="#f57c00"
+        />
+        <StatCard
+          title="Ventas Hoy"
+          value={`$${stats.ventasHoy}`}
+          icon={<Today />}
+          color="#d32f2f"
+        />
+      </div>
+      <Fab color="primary" aria-label="Agregar producto" className="fab-accion" onClick={() => navigate('/crear-producto')}>
+        <Add />
+      </Fab>
     </Box>
   );
 };

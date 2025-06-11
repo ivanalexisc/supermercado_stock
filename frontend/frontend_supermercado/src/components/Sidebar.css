@@ -3,12 +3,14 @@
   background-color: #1e1e2f;
   color: white;
   height: 100vh;
-  transition: width 0.3s ease;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   padding: 10px;
   overflow: hidden;
-  width: 250px; /* ancho completo */
+  width: 250px;
+  position: fixed;
+  z-index: 1000;
 }
 
 /* Colapsado */
@@ -71,22 +73,75 @@ nav a:hover, .logout-btn:hover {
   display: none;
 }
 
-/* Responsive: en mobile, sidebar ocupa el 100% cuando está abierto */
-@media screen and (min-width: 768px) {
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    height: auto;
+    width: 100%;
+    bottom: 0;
+    top: auto;
+    padding: 0;
+    background-color: #1e1e2f;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  }
+
+  .sidebar.closed {
+    width: 100%;
+  }
+
+  .sidebar .titulo-sidebar {
+    display: none;
+  }
+
+  .sidebar .usuario-info {
+    display: none;
+  }
+
+  nav ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  nav ul li {
+    margin: 0;
+  }
+
+  nav a, .logout-btn {
+    flex-direction: column;
+    padding: 8px;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  nav a span, .logout-btn span {
+    font-size: 0.7rem;
+    margin-top: 4px;
+  }
+
+  .menu-btn {
+    display: none;
+  }
+
+  /* Ajustar el contenido principal para el sidebar inferior */
+  .principal {
+    margin-left: 0 !important;
+    padding-bottom: 70px !important;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 769px) {
   .sidebar {
     position: fixed;
-    z-index: 1000;
-    height: 100%;
-    width: 200px;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 250px;
   }
-  .sidebar.closed .usuario-info{
-    display: none;
-  }
+
   .sidebar.closed {
-    width: 60px;
-  }
-   .sidebar.closed .titulo-sidebar {
-    display: none;
+    width: 70px;
   }
 
   .menu-btn {
@@ -96,5 +151,31 @@ nav a:hover, .logout-btn:hover {
     background: #1e1e2f;
     border-radius: 50%;
     padding: 5px;
+  }
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 5px;
+  transition: background 0.2s;
+  font-size: 0.8rem;
+}
+
+.logout-btn:hover,
+.logout-btn:focus {
+  background-color: #2c2c40;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .logout-btn span {
+    font-size: 0.7rem;
   }
 }

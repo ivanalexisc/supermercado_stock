@@ -1,4 +1,3 @@
-
 :root {
     --color-primario: #007bff;
     --color-primario-hover: #0056b3;
@@ -10,23 +9,328 @@
     --color-fondo: #f8f9fa;
     --color-texto: #343a40;
     --color-borde: #dee2e6;
-  }
-  
-  .principal {
+    --sidebar-width: 250px;
+    --sidebar-width-collapsed: 70px;
+}
+
+/* Estilos base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--color-texto);
+}
+
+.principal {
     flex: 1;
-  padding: 20px;
-  overflow: auto;
-  }
-  
+    padding: 1rem;
+    overflow: auto;
+    min-height: 100vh;
+    background-color: var(--color-fondo);
+    transition: margin-left 0.3s ease;
+}
+
+/* Contenedor base para todas las páginas */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Estilos para tablas */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 1rem 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Estilos para formularios */
+.form-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Estilos para tarjetas de pedidos */
+.pedido-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.pedido-card h4 {
+    margin-bottom: 1rem;
+    color: var(--color-texto);
+    border-bottom: 2px solid var(--color-borde);
+    padding-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.pedido-card .total {
+    text-align: right;
+    font-size: 1rem;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    border-top: 2px solid var(--color-borde);
+}
+
+/* Estilos para botones */
+button {
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: var(--color-primario-hover);
+}
+
+/* Estilos para títulos */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-texto);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Estilos para tablas */
+.productos-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+.productos-table th,
+.productos-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.productos-table th {
+    background-color: var(--color-fondo);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.productos-table tr:hover {
+    background-color: var(--color-fondo);
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+    .principal {
+        margin-left: 0 !important;
+        padding: 0.5rem;
+    }
+
+    .container {
+        padding: 0.75rem;
+        border-radius: 0;
+    }
+
+    .form-container {
+        padding: 0.75rem;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+    }
+
+    .productos-table {
+        font-size: 0.8rem;
+    }
+
+    .productos-table th,
+    .productos-table td {
+        padding: 0.5rem 0.25rem;
+    }
+
+    button {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .pedido-card {
+        padding: 0.75rem;
+    }
+
+    .pedido-card h4 {
+        font-size: 1rem;
+    }
+}
 
 /* Media query para pantallas >= 768px */
-@media (min-width: 768px) {
-  .principal {
-    margin-left: 25vw;
+@media screen and (min-width: 768px) {
+    .principal {
+        margin-left: var(--sidebar-width);
+    }
+    
+    .sidebar.closed + .principal {
+        margin-left: var(--sidebar-width-collapsed);
+    }
+
+    .container {
+        max-width: 1200px;
+        padding: 1.5rem;
+    }
+
+    .form-container {
+        max-width: 600px;
+        padding: 2rem;
+    }
+
+    button {
+        width: auto;
+        margin-bottom: 0;
+    }
+}
+
+/* Estilos para tarjetas en móvil */
+@media screen and (max-width: 768px) {
+    .card-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .card {
+        background: white;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-content {
+        padding: 0.5rem 0;
+    }
+
+    .card-content h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-content p {
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .card-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .card-actions button {
+        flex: 1;
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+}
+
+/* Clases de utilidad para visibilidad */
+.desktop-only {
+    display: none;
+}
+
+.mobile-only {
+    display: block;
+}
+
+@media screen and (min-width: 768px) {
+    .desktop-only {
+        display: block;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+}
+
+.dashboard-header {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.dashboard-header h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.25rem;
+}
+
+.dashboard-header p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    text-align: center;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
   }
 }
-@media (min-width: 1024px) {
-  .principal {
-    margin-left: 0vw;
+
+@media (min-width: 769px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.fab-accion {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 2000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+
+@media (max-width: 768px) {
+  .fab-accion {
+    bottom: 90px;
+    right: 16px;
   }
 }

@@ -55,7 +55,7 @@ const Products = () => {
   if (loading) return <p className="loading">Cargando productos...</p>;
   
   return (
-    <div className="products-container">
+    <div className="container">
       <h1>Listado de Productos</h1>
   
       {isAdmin && (
@@ -66,9 +66,8 @@ const Products = () => {
         </div>
       )}
   
-      {/* Tabla para desktop */}
-            <div className="table-wrapper">
-            <div className="table-wrapper">
+      {/* Vista de tabla para desktop */}
+      <div className="table-container desktop-only">
         <table className="productos-table">
           <thead>
             <tr>
@@ -102,28 +101,27 @@ const Products = () => {
             ))}
           </tbody>
         </table>
-        </div>
       </div>
-  
-      {/* Tarjetas para mobile */}
-      <div className="cards-wrapper">
+
+      {/* Vista de tarjetas para móvil */}
+      <div className="card-grid mobile-only">
         {productos.map((prod) => (
-  <div key={prod.id} className="product-card">
-            <img src={prod.imagen_url} alt={prod.nombre} className="product-img" />
-            <div className="card-info">
-              <p><strong>Nombre:</strong> {prod.nombre}</p>
-              <p><strong>Descripción:</strong> {prod.descripcion}</p>
+          <div key={prod.id} className="card">
+            <img src={prod.imagen_url} alt={prod.nombre} />
+            <div className="card-content">
+              <h3>{prod.nombre}</h3>
+              <p>{prod.descripcion}</p>
               <p><strong>Precio:</strong> ${parseFloat(prod.precio).toFixed(2)}</p>
               <p><strong>Stock:</strong> {prod.stock}</p>
               <p><strong>Categoría:</strong> {prod.id_categoria}</p>
-              <p><strong>Activo:</strong> {prod.activo ? "✅" : "❌"}</p>
-              {isAdmin && (
-                <div className="card-actions">
-                  <button className="confirm-button" onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
-                  <button className="eliminar-button" onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
-                </div>
-              )}
+              <p><strong>Estado:</strong> {prod.activo ? "✅ Activo" : "❌ Inactivo"}</p>
             </div>
+            {isAdmin && (
+              <div className="card-actions">
+                <button onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
+                <button onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
+              </div>
+            )}
           </div>
         ))}
       </div>

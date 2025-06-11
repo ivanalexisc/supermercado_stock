@@ -148,26 +148,36 @@ const CargarVenta = () => {
   
       <h3>Productos en la venta</h3>
   
-      <table className="venta-table">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio unitario</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {itemsVenta.map((item, index) => (
-            <tr key={index}>
-              <td>{item.nombre}</td>
-              <td>{item.cantidad}</td>
-              <td>${item.precio.toFixed(2)}</td>
-              <td>${(item.cantidad * item.precio).toFixed(2)}</td>
+      <div className="table-container">
+        <table className="venta-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio unitario</th>
+              <th>Total</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {itemsVenta.map((item, index) => (
+              <tr key={index}>
+                <td>{item.nombre}</td>
+                <td>{item.cantidad}</td>
+                <td>${item.precio.toFixed(2)}</td>
+                <td>${(item.cantidad * item.precio).toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+  
+      {/* Mostrar total general */}
+      {itemsVenta.length > 0 && (
+        <div className="venta-total">
+          <strong>Total de la venta: </strong>
+          ${itemsVenta.reduce((acc, item) => acc + item.cantidad * item.precio, 0).toFixed(2)}
+        </div>
+      )}
   
       {itemsVenta.length > 0 && (
         <button className="confirm-button" onClick={enviarVenta}>
