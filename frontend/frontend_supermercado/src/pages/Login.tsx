@@ -21,7 +21,7 @@ const Login = () => {
       if (res.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("usuario", JSON.stringify(data.usuario));
-        navigate("/Home");
+        navigate("/home");
       } else {
         alert(data.message || "Credenciales incorrectas");
       }

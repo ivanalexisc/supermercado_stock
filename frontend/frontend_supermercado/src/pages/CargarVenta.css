@@ -1,144 +1,188 @@
 .venta-container {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 24px;
-    background-color: #fdfdfd;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+    background: #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 0;
+  }
+  
+  .venta-container > *:not(.venta-total) {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 20px auto;
   }
   
   .venta-container h2,
   .venta-container h3 {
     text-align: center;
-    color: #333;
-    margin-bottom: 20px;
+    color: #0d6efd;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
   }
   
   .select-row {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .select-row select {
+    min-width: 180px;
+    max-width: 220px;
+    width: auto;
+  }
+  
+  .select-row input[type="number"] {
+    width: 70px;
+    min-width: 50px;
+    max-width: 100px;
   }
   
   .select-row select,
   .select-row input {
-    padding: 8px;
-    font-size: 16px;
+    padding: 10px 12px;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #f2f2f2;
+    font-family: inherit;
+    margin-bottom: 0;
   }
   
   .select-row button {
-    background-color: var(--color-primario);
+    background: linear-gradient(to right, #0d6efd, #0dcaf0);
     border: none;
     color: white;
-    padding: 10px 16px;
-    font-size: 16px;
-    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background 0.2s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
   }
   
   .select-row button:hover {
-    background-color: var(--color-primario-hover);
+    background: linear-gradient(to right, #0dcaf0, #0d6efd);
+    box-shadow: 0 6px 16px rgba(13,110,253,0.10);
+  }
+  
+  .table-container {
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    padding: 10px 0 10px 0;
+    margin-bottom: 20px;
+    overflow-x: auto;
   }
   
   .venta-table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1rem;
+    background-color: transparent;
   }
   
   .venta-table th,
   .venta-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
+    padding: 12px 8px;
     text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
   }
   
   .venta-table th {
-    background-color: #f2f2f2;
+    background-color: #f8fafc;
+    font-weight: 700;
+    color: #0d6efd;
+    font-size: 1.05rem;
+    border-top: none;
+  }
+  
+  .venta-table tr:last-child td {
+    border-bottom: none;
   }
   
   .confirm-button {
     margin-top: 20px;
     display: block;
     width: 100%;
-    background-color: var(--color-exito);
+    background: linear-gradient(to right, #0d6efd, #0dcaf0);
     color: white;
-    padding: 10px 16px;
+    padding: 12px;
     font-size: 16px;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
     cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
   }
-  
   
   .confirm-button:hover {
-    background-color: var(--color-exito-hover);
-  }
-  .eliminar-button{
-    margin-top: 20px;
-    display: block;
-    width: 100%;
-    background-color: var(--color-peligro);
-    color: white;
-    padding: 10px 16px;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    background: linear-gradient(to right, #0dcaf0, #0d6efd);
+    box-shadow: 0 6px 16px rgba(13,110,253,0.10);
   }
   
-  .eliminar-button:hover{
-    background-color: var(--color-peligro-hover);
-  }
-
-.venta-total {
-  margin: 1rem 0 0.5rem 0;
-  font-size: 1.2rem;
-  text-align: right;
-  color: #222;
-  font-weight: bold;
-}
-
-@media (max-width: 768px) {
-  .venta-container {
-    max-width: 100%;
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    border-radius: 0;
-    box-shadow: none;
-  }
-  .venta-container h2,
-  .venta-container h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-  }
-  .select-row {
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-  .venta-table {
-    font-size: 0.85rem;
-    min-width: 400px;
-  }
-  .table-container {
-    overflow-x: auto;
-    width: 100%;
-  }
-  .venta-table th,
-  .venta-table td {
-    padding: 0.4rem;
-  }
-  .confirm-button, .eliminar-button {
-    padding: 0.5rem;
-    font-size: 0.95rem;
-  }
   .venta-total {
-    font-size: 1.05rem;
-    text-align: center;
-    margin: 0.75rem 0 0.5rem 0;
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.2rem;
+    text-align: right;
+    color: #222;
+    font-weight: bold;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
   }
-}
+  
+  @media (max-width: 768px) {
+    .venta-container > *:not(.venta-total) {
+      max-width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .venta-container h2,
+    .venta-container h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .select-row {
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .venta-table {
+      font-size: 0.85rem;
+      min-width: 400px;
+    }
+    .table-container {
+      overflow-x: auto;
+      width: 100%;
+      max-width: 100vw;
+    }
+    .venta-table th,
+    .venta-table td {
+      padding: 0.4rem;
+    }
+    .confirm-button {
+      padding: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .venta-total {
+      font-size: 1.05rem;
+      text-align: center;
+      margin: 0.75rem 0 0.5rem 0;
+      max-width: 100vw;
+    }
+  }

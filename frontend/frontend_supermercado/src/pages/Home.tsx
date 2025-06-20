@@ -60,19 +60,19 @@ const Home = () => {
           title="Stock total"
           value={stats.stock}
           icon={<ShoppingCart />}
-          color="#388e3c"
+          color="#1976d2"
         />
         <StatCard
           title="Ventas Totales"
           value={`$${stats.ventas}`}
           icon={<MonetizationOn />}
-          color="#f57c00"
+          color="#1976d2"
         />
         <StatCard
           title="Ventas Hoy"
           value={`$${stats.ventasHoy}`}
           icon={<Today />}
-          color="#d32f2f"
+          color="#1976d2"
         />
       </div>
       <Fab color="primary" aria-label="Agregar producto" className="fab-accion" onClick={() => navigate('/crear-producto')}>
