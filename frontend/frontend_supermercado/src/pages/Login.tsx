@@ -21,6 +21,7 @@ const Login = () => {
       if (res.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("usuario", JSON.stringify(data.usuario));
+        console.log(data);
         navigate("/home");
       } else {
         alert(data.message || "Credenciales incorrectas");
@@ -81,6 +82,18 @@ const Login = () => {
             fontSize: "14px",
           }}
         />
+        <span style={{ fontSize: "13px" }}>¿No tienes cuenta? </span>
+  <a
+    href="/register"
+    style={{
+      color: "#0d6efd",
+      textDecoration: "none",
+      fontWeight: "bold",
+      fontSize: "13px",
+    }}
+  >
+    Regístrate
+  </a>
 
         <a href="#" style={{
           fontSize: "12px",
@@ -91,6 +104,7 @@ const Login = () => {
         }}>
           Olvidó su contraseña?
         </a>
+        
 
         <button type="submit" style={{
           background: "linear-gradient(to right, #0d6efd, #0dcaf0)",

@@ -75,7 +75,6 @@
   
   .table-container {
     width: 100%;
-    max-width: 500px;
     background: #fff;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
