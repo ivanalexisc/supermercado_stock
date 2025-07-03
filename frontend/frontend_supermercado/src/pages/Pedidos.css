@@ -1,0 +1,59 @@
+.estado-select {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-borde);
+  background: #fff;
+  color: var(--color-texto);
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.estado-select:focus {
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.15);
+}
+
+.estado-select option[value="pendiente"] {
+  color: var(--color-secundario);
+}
+.estado-select option[value="completado"] {
+  color: var(--color-exito);
+}
+.estado-select option[value="cancelado"] {
+  color: var(--color-peligro);
+}
+
+/* Botones de filtro */
+.filtro-btn {
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: 1px solid var(--color-borde);
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  margin-right: 2px;
+}
+.filtro-btn:hover {
+  background: var(--color-primario-hover);
+  color: #fff;
+  border-color: var(--color-primario);
+}
+.filtro-btn.activo {
+  background: var(--color-primario);
+  color: #fff;
+  border-color: var(--color-primario);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .estado-select {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+}

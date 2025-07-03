@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         fecha_pedido: DataTypes.DATE,
         total: DataTypes.DECIMAL(10, 2),
-        estado: DataTypes.ENUM('pendiente', 'completado', 'cancelado'),
+        estado: DataTypes.ENUM('pendiente', 'enviado', 'entregado', 'cancelado'),
       },
       {
         timestamps: false 
@@ -23,4 +23,3 @@ module.exports = (sequelize, DataTypes) => {
   
     return Pedido;
   };
-  

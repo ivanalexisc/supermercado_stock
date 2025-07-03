@@ -28,6 +28,22 @@ const pedidosController = {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
+  updateEstado: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { estado } = req.body;
+      const pedido = await Pedido.findByPk(id);
+      if (!pedido) {
+        return res.status(404).json({ error: 'Pedido no encontrado' });
+      }
+      pedido.estado = estado;
+      await pedido.save();
+      res.json({ message: 'Estado actualizado', pedido });
+    } catch (error) {
+      console.error('Error al actualizar estado del pedido:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
 };
 
 module.exports = pedidosController;

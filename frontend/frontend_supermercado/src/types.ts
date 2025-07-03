@@ -23,6 +23,7 @@ export interface PedidoAPI {
     fecha_pedido: string;
     total: number;
     usuario: string;
+    estado: string;
     detalles: {
       id_producto: number;
       nombre: string;
@@ -40,4 +41,3 @@ export interface PedidoAPI {
   imagen_url: string;
   activo: boolean;
   }
-  
