@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./EditProduct.css";
+import "../pages/ProductsModern.css";
 import { Producto } from '../types'
 
 
@@ -8,6 +8,7 @@ const EditProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [producto, setProducto] = useState<Producto | null>(null);
+  const [notif, setNotif] = useState<{msg: string, type: "success"|"error"} | null>(null);
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/productos/${id}`)
@@ -57,55 +58,33 @@ const EditProduct = () => {
       },
       body: JSON.stringify(producto),
     })
-      .then((res) => res.json())
-      .then(() => navigate("/productos"))
-      .catch((err) => console.error("Error al editar el producto:", err));
+      .then((res) => {
+        if (res.ok) {
+          setNotif({msg: "Producto editado con éxito", type: "success"});
+          setTimeout(() => navigate("/productos"), 1500);
+        } else {
+          setNotif({msg: "Error al editar el producto", type: "error"});
+        }
+        setTimeout(() => setNotif(null), 2500);
+        return res.json();
+      })
+      .catch(() => {
+        setNotif({msg: "Error al editar el producto", type: "error"});
+        setTimeout(() => setNotif(null), 2500);
+      });
   };
 
   if (!producto) return <p>Cargando producto...</p>;
-  console.log(producto);
   return (
-    <div style={{
-      minHeight: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      background: "#f1f5f9",
-      padding: "20px"
-    }}>
-      <form onSubmit={handleSubmit} style={{
-        background: "#fff",
-        borderRadius: "20px",
-        padding: "40px 30px",
-        boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        maxWidth: "500px",
-      }}>
-        <h2 style={{
-          textAlign: "center",
-          color: "#0d6efd",
-          marginBottom: "30px",
-          fontSize: "24px",
-          fontWeight: "600"
-        }}>
-          Editar Producto
-        </h2>
+    <div className="form-container">
+      <form onSubmit={handleSubmit} className="form-card">
+        <h2>Editar Producto</h2>
         <input
           name="nombre"
           value={producto.nombre}
           onChange={handleChange}
           placeholder="Nombre del producto"
           required
-          style={{
-            padding: "12px 16px",
-            border: "none",
-            borderRadius: "10px",
-            marginBottom: "15px",
-            background: "#f2f2f2",
-            fontSize: "14px",
-          }}
         />
         <textarea
           name="descripcion"
@@ -113,24 +92,8 @@ const EditProduct = () => {
           onChange={handleChangeTextarea}
           placeholder="Descripción del producto"
           required
-          style={{
-            padding: "12px 16px",
-            border: "none",
-            borderRadius: "10px",
-            marginBottom: "15px",
-            background: "#f2f2f2",
-            fontSize: "14px",
-            minHeight: "100px",
-            resize: "vertical",
-            fontFamily: "inherit"
-          }}
         />
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "15px",
-          marginBottom: "15px"
-        }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px", marginBottom: "15px" }}>
           <input
             name="precio"
             type="number"
@@ -139,13 +102,6 @@ const EditProduct = () => {
             onChange={handleChange}
             placeholder="Precio"
             required
-            style={{
-              padding: "12px 16px",
-              border: "none",
-              borderRadius: "10px",
-              background: "#f2f2f2",
-              fontSize: "14px",
-            }}
           />
           <input
             name="stock"
@@ -154,13 +110,6 @@ const EditProduct = () => {
             onChange={handleChange}
             placeholder="Stock"
             required
-            style={{
-              padding: "12px 16px",
-              border: "none",
-              borderRadius: "10px",
-              background: "#f2f2f2",
-              fontSize: "14px",
-            }}
           />
         </div>
         <input
@@ -169,14 +118,6 @@ const EditProduct = () => {
           onChange={handleChange}
           placeholder="URL de la imagen"
           required
-          style={{
-            padding: "12px 16px",
-            border: "none",
-            borderRadius: "10px",
-            marginBottom: "15px",
-            background: "#f2f2f2",
-            fontSize: "14px",
-          }}
         />
         <input
           name="id_categoria"
@@ -185,76 +126,35 @@ const EditProduct = () => {
           onChange={handleChange}
           placeholder="Categoría ID"
           required
-          style={{
-            padding: "12px 16px",
-            border: "none",
-            borderRadius: "10px",
-            marginBottom: "15px",
-            background: "#f2f2f2",
-            fontSize: "14px",
-          }}
         />
-        <label style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          marginBottom: "25px",
-          fontSize: "15px",
-          color: "#0d6efd",
-          fontWeight: 500
-        }}>
+        <label className="label-checkbox">
           <input
             name="activo"
             type="checkbox"
             checked={producto.activo}
             onChange={handleChange}
-            style={{
-              width: "18px",
-              height: "18px",
-              accentColor: "#0d6efd"
-            }}
           />
           Activo
         </label>
         <div style={{ display: "flex", gap: "15px" }}>
           <button
             type="button"
+            className="btn-cancel"
             onClick={() => navigate("/productos")}
-            style={{
-              padding: "12px",
-              border: "1px solid #0d6efd",
-              borderRadius: "10px",
-              cursor: "pointer",
-              fontWeight: "600",
-              fontSize: "15px",
-              flex: 1,
-              background: "#fff",
-              color: "#0d6efd",
-              transition: "all 0.3s ease"
-            }}
           >
             Cancelar
           </button>
           <button
             type="submit"
-            style={{
-              background: "linear-gradient(to right, #0d6efd, #0dcaf0)",
-              color: "#fff",
-              padding: "12px",
-              border: "none",
-              borderRadius: "10px",
-              cursor: "pointer",
-              fontWeight: "600",
-              fontSize: "15px",
-              flex: 1,
-              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-              transition: "all 0.3s ease"
-            }}
+            className="btn-primary"
           >
             Guardar Cambios
           </button>
         </div>
       </form>
+      {notif && (
+        <div className={`notif ${notif.type}`}>{notif.msg}</div>
+      )}
     </div>
   );
 };

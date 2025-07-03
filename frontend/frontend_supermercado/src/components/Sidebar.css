@@ -1,7 +1,22 @@
+:root {
+  --color-primario: #22d3ee;
+  --color-primario-hover: #06b6d4;
+  --color-secundario: #64748b;
+  --color-exito: #22c55e;
+  --color-peligro: #ef4444;
+  --color-fondo: #18181b;
+  --color-fondo-claro: #23232b;
+  --color-borde: #27272a;
+  --color-titulo: #f4f4f5;
+  --color-texto: #d4d4d8;
+  --color-table-row: #23232b;
+  --color-table-row-alt: #1e1e23;
+}
+
 /* Sidebar base */
 .sidebar {
-  background-color: #1e1e2f;
-  color: white;
+  background-color: var(--color-fondo-claro);
+  color: var(--color-titulo);
   height: 100vh;
   transition: all 0.3s ease;
   display: flex;
@@ -22,7 +37,7 @@
 .menu-btn {
   background: none;
   border: none;
-  color: white;
+  color: var(--color-primario);
   cursor: pointer;
   margin-bottom: 20px;
 }

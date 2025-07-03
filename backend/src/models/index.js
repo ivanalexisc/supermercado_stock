@@ -21,6 +21,7 @@ db.Producto = require('./producto')(sequelize, DataTypes);
 db.Usuario = require('./usuario')(sequelize, DataTypes);
 db.Pedido = require('./pedido')(sequelize, DataTypes);
 db.DetallePedido = require('./detalle_pedido')(sequelize, DataTypes);
+db.Categoria = require('./categoria')(sequelize, DataTypes);
 
 // Relacion Usuario - Pedido
 db.Usuario.hasMany(db.Pedido, { foreignKey: 'id_usuario' });
@@ -33,6 +34,10 @@ db.DetallePedido.belongsTo(db.Pedido, { foreignKey: 'id_pedido' });
 // Relacion Producto - DetallePedido
 db.Producto.hasMany(db.DetallePedido, { foreignKey: 'id_producto' });
 db.DetallePedido.belongsTo(db.Producto, { foreignKey: 'id_producto' });
+
+// Relacion Producto - Categoria
+db.Categoria.hasMany(db.Producto, { foreignKey: 'id_categoria' });
+db.Producto.belongsTo(db.Categoria, { foreignKey: 'id_categoria' });
 
 module.exports = db;
 

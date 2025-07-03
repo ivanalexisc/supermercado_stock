@@ -1,10 +1,7 @@
 // src/pages/Pedidos.tsx
 import { useEffect, useState } from "react";
 import { Pedido, PedidoAPI } from "../types";
-import "./Pedidos.css";
-import "./PedidosExtra.css";
-
-
+import "../pages/ProductsModern.css";
 
 const estadoLabels: Record<string, string> = {
   pendiente: "Pendiente",
@@ -26,6 +23,8 @@ const Pedidos = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [confirmAction, setConfirmAction] = useState<null | (() => void)>(null);
   const [notif, setNotif] = useState<{msg: string, type: "success"|"error"} | null>(null);
+  // Estado para el mensaje del modal
+  const [modalMsg, setModalMsg] = useState<string>("");
 
   useEffect(() => {
     fetch("http://localhost:3001/api/pedidos")
@@ -51,34 +50,35 @@ const Pedidos = () => {
   // Función para cambiar estado con notificación y recarga
   const handleEstadoChange = async (id: number, nuevoEstado: string) => {
     try {
-      await fetch(`http://localhost:3001/api/pedidos/${id}/estado`, {
+      const res = await fetch(`http://localhost:3001/api/pedidos/${id}/estado`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ estado: nuevoEstado })
       });
-      setNotif({msg: `Estado actualizado a "${estadoLabels[nuevoEstado] || nuevoEstado}"`, type: "success"});
+      if (!res.ok) throw new Error('Error al actualizar el estado');
+      setNotif({msg: `Pedido numero ${id} actualizado a "${estadoLabels[nuevoEstado] || nuevoEstado}"`, type: "success"});
       // Refresca la lista desde la base de datos
-      fetch("http://localhost:3001/api/pedidos")
-        .then((res) => res.json())
-        .then((data: PedidoAPI[]) => {
-          const pedidosFormateados: Pedido[] = data.map((p) => ({
-            id: p.id,
-            fecha_pedido: p.fecha_pedido,
-            total: parseFloat(p.total),
-            usuario: p.Usuario?.nombre || "Desconocido",
-            estado: p.estado,
-            detalles: p.DetallePedidos.map((d) => ({
-              id_producto: d.id_producto,
-              nombre: d.Producto?.nombre || "Sin nombre",
-              cantidad: d.cantidad,
-              precio_unitario: parseFloat(d.precio_unitario),
-            })),
-          }));
-          setPedidos(pedidosFormateados);
-        });
+      const pedidosRes = await fetch("http://localhost:3001/api/pedidos");
+      const data: PedidoAPI[] = await pedidosRes.json();
+      const pedidosFormateados: Pedido[] = data.map((p) => ({
+        id: p.id,
+        fecha_pedido: p.fecha_pedido,
+        total: parseFloat(p.total),
+        usuario: p.Usuario?.nombre || "Desconocido",
+        estado: p.estado,
+        detalles: p.DetallePedidos.map((d) => ({
+          id_producto: d.id_producto,
+          nombre: d.Producto?.nombre || "Sin nombre",
+          cantidad: d.cantidad,
+          precio_unitario: parseFloat(d.precio_unitario),
+        })),
+      }));
+      setPedidos(pedidosFormateados);
     } catch (err) {
       setNotif({msg: "Error al actualizar el estado", type: "error"});
     }
+    setShowConfirm(false);
+    setConfirmAction(null);
     setTimeout(() => setNotif(null), 2500);
   };
 
@@ -143,18 +143,18 @@ const Pedidos = () => {
                   <select
                     className="estado-select"
                     value={pedido.estado}
-                    onChange={async (e) => {
+                    onChange={(e) => {
                       const nuevoEstado = e.target.value;
-                      // Confirmación para entregado/cancelado
                       if (["entregado", "cancelado"].includes(nuevoEstado)) {
+                        let msg = "¿Estás seguro que deseas cambiar el estado?";
+                        if (nuevoEstado === "entregado") msg = "¿Estás seguro de marcar el pedido como ENTREGADO? Esta acción no se puede deshacer.";
+                        if (nuevoEstado === "cancelado") msg = "¿Estás seguro de marcar el pedido como CANCELADO? Esta acción no se puede deshacer.";
+                        setModalMsg(msg);
                         setShowConfirm(true);
-                        setConfirmAction(() => async () => {
-                          setShowConfirm(false);
-                          await handleEstadoChange(pedido.id, nuevoEstado);
-                        });
+                        setConfirmAction(() => () => handleEstadoChange(pedido.id, nuevoEstado));
                         return;
                       }
-                      await handleEstadoChange(pedido.id, nuevoEstado);
+                      handleEstadoChange(pedido.id, nuevoEstado);
                     }}
                   >
                     <option value="pendiente">Pendiente</option>
@@ -172,9 +172,9 @@ const Pedidos = () => {
       {showConfirm && (
         <div className="confirm-modal-bg">
           <div className="confirm-modal">
-            <p>¿Estás seguro que deseas cambiar el estado?<br />Esta acción no se puede deshacer.</p>
+            <p>{modalMsg || "¿Estás seguro que deseas cambiar el estado?\nEsta acción no se puede deshacer."}</p>
             <button className="btn-confirm" onClick={() => { confirmAction && confirmAction(); }}>Confirmar</button>
-            <button className="btn-cancel" onClick={() => setShowConfirm(false)}>Cancelar</button>
+            <button className="btn-cancel" onClick={() => { setShowConfirm(false); setConfirmAction(null); }}>Cancelar</button>
           </div>
         </div>
       )}

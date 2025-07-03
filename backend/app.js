@@ -16,7 +16,7 @@ app.use('/auth', authRoutes);
 app.use('/api/ventas', ventasRoutes);
 app.use('/api/pedidos', pedidosRoutes);
 app.use('/dashboard', dashboardRoutes);
-
+app.use('/api/categorias', require('./src/routes/categorias'));
 
 // Probar conexión y sincronizar modelos
 db.sequelize.authenticate()

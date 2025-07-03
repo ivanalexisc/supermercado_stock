@@ -1,14 +1,16 @@
 :root {
-    --color-primario: #007bff;
-    --color-primario-hover: #0056b3;
-    --color-secundario: #6c757d;
-    --color-exito: #28a745;
-    --color-exito-hover: #218838;
-    --color-peligro: #dc3545;
-    --color-peligro-hover: #c82333;
-    --color-fondo: #f8f9fa;
-    --color-texto: #343a40;
-    --color-borde: #dee2e6;
+    --color-primario: #22d3ee;
+    --color-primario-hover: #06b6d4;
+    --color-secundario: #64748b;
+    --color-exito: #22c55e;
+    --color-peligro: #ef4444;
+    --color-fondo: #18181b;
+    --color-fondo-claro: #23232b;
+    --color-borde: #3498db ;
+    --color-titulo: #f4f4f5;
+    --color-texto: #ecf0f1 ;
+    --color-table-row: #23232b;
+    --color-table-row-alt: #1e1e23;
     --sidebar-width: 250px;
     --sidebar-width-collapsed: 70px;
 }
@@ -21,8 +23,8 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    line-height: 1.6;
+    font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: var(--color-fondo);
     color: var(--color-texto);
 }
 
@@ -31,7 +33,7 @@ body {
     padding: 1rem;
     overflow: auto;
     min-height: 100vh;
-    background-color: var(--color-fondo);
+    background-color: #1e1e2f;
     transition: margin-left 0.3s ease;
 }
 
@@ -40,7 +42,7 @@ body {
     width: 100%;
     margin: 0 auto;
     padding: 1rem;
-    background-color: white;
+    background: transparent;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -65,7 +67,7 @@ body {
 
 /* Estilos para tarjetas de pedidos */
 .pedido-card {
-    background-color: white;
+    background-color: #2c3e50;
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -74,8 +76,8 @@ body {
 
 .pedido-card h4 {
     margin-bottom: 1rem;
-    color: var(--color-texto);
-    border-bottom: 2px solid var(--color-borde);
+    color: #ecf0f1;
+    border-bottom: 2px solid #3498db ;
     padding-bottom: 0.5rem;
     font-size: 1.1rem;
 }
@@ -108,7 +110,7 @@ button:hover {
 
 /* Estilos para títulos */
 h1, h2, h3, h4, h5, h6 {
-    color: var(--color-texto);
+    color: var(--color-titulo);
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }

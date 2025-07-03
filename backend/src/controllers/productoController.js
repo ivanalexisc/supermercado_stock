@@ -1,9 +1,12 @@
-const { Producto } = require('../models');
+const { Producto, Categoria } = require('../models');
 
 module.exports = {
   async getAll(req, res) {
     try {
-      const productos = await Producto.findAll({ where: { activo: true } });
+      const productos = await Producto.findAll({ 
+        where: { activo: true },
+        include: [{ model: Categoria, attributes: ['id', 'nombre'] }]
+      });
       res.json(productos);
     } catch (err) {
       res.status(500).json({ error: 'Error al obtener los productos' });
