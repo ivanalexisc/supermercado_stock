@@ -1,4 +1,4 @@
-const { Producto, DetallePedido, Pedido } = require('../models');
+const { Producto, DetallePedido, Pedido, Usuario } = require('../models');
 const { Op, Sequelize } = require('sequelize');
 
 module.exports = {
@@ -37,12 +37,14 @@ module.exports = {
         ],
         raw: true
       });
+      const totalUsuarios = await Usuario.count();
 
       res.json({
         productos: totalProductos,
         stock: stockTotal,
         ventas: parseFloat(totalVentas[0].total) || 0,
         ventasHoy: parseFloat(ventasHoy[0].total) || 0,
+        usuarios: totalUsuarios
       });
 
     } catch (error) {

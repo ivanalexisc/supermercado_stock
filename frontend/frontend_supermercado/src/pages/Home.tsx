@@ -9,6 +9,7 @@ type DashboardStats = {
   stock: number;
   ventas: number;
   ventasHoy: number;
+  usuarios: number;
 };
 
 const Home = () => {
@@ -88,6 +89,14 @@ const Home = () => {
             value={`$${stats.ventasHoy}`}
             icon={<Today />}
             color="#1976d2"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatCard
+            title="Clientes activos "
+            value={`${stats.usuarios}`}
+            icon={<Person />}
+            color="#388e3c"
           />
         </Grid>
       </Grid>
