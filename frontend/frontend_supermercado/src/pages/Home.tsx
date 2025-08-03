@@ -59,7 +59,8 @@ const Home = () => {
         </div>
       </Paper>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+       
           <StatCard
             title="Productos"
             value={stats.productos}
@@ -67,7 +68,7 @@ const Home = () => {
             color="#1976d2"
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             title="Stock total"
             value={stats.stock}
@@ -75,7 +76,7 @@ const Home = () => {
             color="#1976d2"
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             title="Ventas Totales"
             value={`$${stats.ventas}`}
@@ -83,7 +84,7 @@ const Home = () => {
             color="#1976d2"
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             title="Ventas Hoy"
             value={`$${stats.ventasHoy}`}
@@ -91,12 +92,12 @@ const Home = () => {
             color="#1976d2"
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+       <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             title="Clientes activos "
             value={`${stats.usuarios}`}
             icon={<Person />}
-            color="#388e3c"
+            color="#1976d2"
           />
         </Grid>
       </Grid>

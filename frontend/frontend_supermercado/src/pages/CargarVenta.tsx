@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./cargarVenta.css";
-import Alert from '@mui/material/Alert';
+import "./ProductsModern.css";
 
 type Producto = {
   id: number;
@@ -98,92 +98,78 @@ const CargarVenta = () => {
 
   return (
     <div className="venta-container">
-      <h2>Registrar nueva venta</h2>
-      {alerta === "success" && (
-  <Alert
-    severity="success"
-    onClose={() => setAlerta(null)}
-    style={{ marginBottom: "1rem" }}
-  >
-    Venta registrada con éxito
-  </Alert>
-)}
+      <div className="form-card">
+        <h2>Registrar nueva venta</h2>
+        {alerta === "success" && (
+          <div className="notif success" style={{ marginBottom: 16 }}>Venta registrada con éxito</div>
+        )}
+        {alerta === "error" && (
+          <div className="notif error" style={{ marginBottom: 16 }}>Error al registrar la venta</div>
+        )}
 
-{alerta === "error" && (
-  <Alert
-    severity="error"
-    onClose={() => setAlerta(null)}
-    style={{ marginBottom: "1rem" }}
-  >
-    Error al registrar la venta
-  </Alert>
-)}
-  
-      <div className="select-row">
-        <select
-          value={itemSeleccionado}
-          onChange={(e) => setItemSeleccionado(Number(e.target.value))}
-        >
-          <option value={0}>Seleccionar producto</option>
-          {productos
-            .filter((p) => p.stock > 0)
-            .map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.nombre} (Stock: {p.stock})
-              </option>
-            ))}
-        </select>
-  
-        <input
-          type="number"
-          min={1}
-          max={stockDisponible}
-          value={cantidad}
-          onChange={(e) => setCantidad(Number(e.target.value))}
-          disabled={itemSeleccionado === 0}
-        />
-  
-        <button onClick={agregarItem}>Agregar</button>
-      </div>
-  
-      <h3>Productos en la venta</h3>
-  
-      <div className="table-container">
-        <table className="venta-table">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio unitario</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {itemsVenta.map((item, index) => (
-              <tr key={index}>
-                <td>{item.nombre}</td>
-                <td>{item.cantidad}</td>
-                <td>${item.precio.toFixed(2)}</td>
-                <td>${(item.cantidad * item.precio).toFixed(2)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-  
-      {/* Mostrar total general */}
-      {itemsVenta.length > 0 && (
-        <div className="venta-total">
-          <strong>Total de la venta: </strong>
-          ${itemsVenta.reduce((acc, item) => acc + item.cantidad * item.precio, 0).toFixed(2)}
+        <div className="select-row" style={{ marginBottom: 18 }}>
+          <select
+            value={itemSeleccionado}
+            onChange={(e) => setItemSeleccionado(Number(e.target.value))}
+          >
+            <option value={0}>Seleccionar producto</option>
+            {productos
+              .filter((p) => p.stock > 0)
+              .map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.nombre} (Stock: {p.stock})
+                </option>
+              ))}
+          </select>
+          <input
+            type="number"
+            min={1}
+            max={stockDisponible}
+            value={cantidad}
+            onChange={(e) => setCantidad(Number(e.target.value))}
+            disabled={itemSeleccionado === 0}
+          />
+          <button className="btn-primary" onClick={agregarItem}>Agregar</button>
         </div>
-      )}
-  
-      {itemsVenta.length > 0 && (
-        <button className="confirm-button" onClick={enviarVenta}>
-          Confirmar venta
-        </button>
-      )}
+
+        <h3 style={{ color: 'var(--color-primario)', marginBottom: 18 }}>Productos en la venta</h3>
+        <div className="table-container">
+          <table className="venta-table productos-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio unitario</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {itemsVenta.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.nombre}</td>
+                  <td>{item.cantidad}</td>
+                  <td>${item.precio.toFixed(2)}</td>
+                  <td>${(item.cantidad * item.precio).toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mostrar total general */}
+        {itemsVenta.length > 0 && (
+          <div className="venta-total" style={{ color: 'var(--color-exito)', marginTop: 18 }}>
+            <strong>Total de la venta: </strong>
+            ${itemsVenta.reduce((acc, item) => acc + item.cantidad * item.precio, 0).toFixed(2)}
+          </div>
+        )}
+
+        {itemsVenta.length > 0 && (
+          <button className="btn-primary confirm-button" style={{ marginTop: 18 }} onClick={enviarVenta}>
+            Confirmar venta
+          </button>
+        )}
+      </div>
     </div>
   );
 };
