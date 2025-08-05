@@ -33,13 +33,16 @@ const CreateProduct = () => {
     const { name, value } = e.target;
     setProducto({ ...producto, [name]: value });
   };
-
+const token = localStorage.getItem('token');
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const res = await fetch("http://localhost:3001/api/productos", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+           "Content-Type": "application/json",
+           "Authorization": `Bearer ${token}` 
+          },
         body: JSON.stringify(producto),
       });
 

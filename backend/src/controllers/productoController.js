@@ -1,4 +1,4 @@
-const { Producto, Categoria } = require('../models');
+const { Producto, Categoria, HistorialMovimiento } = require('../models');
 
 module.exports = {
   async getAll(req, res) {
@@ -26,9 +26,18 @@ module.exports = {
   async create(req, res) {
     try {
       const nuevoProducto = await Producto.create({ ...req.body, activo: true });
+
+      const id_usuario = req.user?.id || null; // Si no hay usuario autenticado, dejar null
+      await HistorialMovimiento.create({
+        id_producto: nuevoProducto.id,  
+        id_usuario: id_usuario,
+        tipo_movimiento: 'CREACION',
+        cantidad_afectada: req.body.stock ||null // No aplica en creación
+      });
       res.status(201).json(nuevoProducto);
     } catch (err) {
-      res.status(500).json({ error: 'Error al crear el producto' });
+       console.error("Error al crear producto:", err); 
+      res.status(500).json({ error: 'Error al crear el producto', detalle: err.message });
     }
   },
 

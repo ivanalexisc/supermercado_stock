@@ -22,6 +22,7 @@ db.Usuario = require('./usuario')(sequelize, DataTypes);
 db.Pedido = require('./pedido')(sequelize, DataTypes);
 db.DetallePedido = require('./detalle_pedido')(sequelize, DataTypes);
 db.Categoria = require('./categoria')(sequelize, DataTypes);
+db.HistorialMovimiento = require('./HistorialMovimiento')(sequelize, DataTypes);
 
 // Relacion Usuario - Pedido
 db.Usuario.hasMany(db.Pedido, { foreignKey: 'id_usuario' });
@@ -38,6 +39,14 @@ db.DetallePedido.belongsTo(db.Producto, { foreignKey: 'id_producto' });
 // Relacion Producto - Categoria
 db.Categoria.hasMany(db.Producto, { foreignKey: 'id_categoria' });
 db.Producto.belongsTo(db.Categoria, { foreignKey: 'id_categoria' });
+
+// Relacion Producto - HistorialMovimiento
+db.Producto.hasMany(db.HistorialMovimiento, { foreignKey: 'id_producto', as: 'historial' });
+db.HistorialMovimiento.belongsTo(db.Producto, { foreignKey: 'id_producto', as: 'producto' });
+
+// Relacion Usuario - HistorialMovimiento
+db.Usuario.hasMany(db.HistorialMovimiento, { foreignKey: 'id_usuario', as: 'historial' });
+db.HistorialMovimiento.belongsTo(db.Usuario, { foreignKey: 'id_usuario', as: 'usuario' });
 
 module.exports = db;
 
