@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Header from './components/Header';
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
@@ -63,12 +64,8 @@ const App = () => {
 };
 
 const WithSidebar = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ 
-    display: "flex", 
-    minHeight: "100vh",
-    width: "100%",
-    position: "relative"
-  }}>
+  <div className="layout-container">
+    <Header />
     <Sidebar />
     <main className="principal">
       {children}

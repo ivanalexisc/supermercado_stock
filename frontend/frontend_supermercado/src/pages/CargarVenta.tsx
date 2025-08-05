@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./cargarVenta.css";
 import "./ProductsModern.css";
 
 type Producto = {

@@ -1,12 +1,12 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { Home, Boxes, Settings, Menu, LogOut, User } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { Home, Boxes, Settings, Menu, User } from "lucide-react";
 import { useState, useEffect } from "react";
 import "./Sidebar.css";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [usuario, setUsuario] = useState<{ nombre: string } | null>(null);
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const usuarioGuardado = localStorage.getItem("usuario");
@@ -15,11 +15,7 @@ const Sidebar = () => {
     }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
-    navigate("/login");
-  };
+  
 
   return (
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
@@ -65,12 +61,7 @@ const Sidebar = () => {
               <span>Pedidos</span>
             </NavLink>
           </li>
-          <li>
-            <button onClick={handleLogout} className="logout-btn">
-              <LogOut size={24} />
-              <span>Cerrar sesión</span>
-            </button>
-          </li>
+          
           <li className="desktop-only">
             <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
               <Menu size={28} />

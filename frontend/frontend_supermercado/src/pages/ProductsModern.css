@@ -182,7 +182,6 @@ input:focus, select:focus, textarea:focus {
 
 .form-container, .venta-container {
   min-height: 100vh;
-  background: var(--color-fondo);
   display: flex;
   flex-direction: column;
   align-items: center;

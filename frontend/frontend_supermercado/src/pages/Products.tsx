@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Products.css";
+
 import "./ProductsModern.css";
 import { useNavigate } from "react-router-dom";
 import {Producto} from '../types'

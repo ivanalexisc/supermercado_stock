@@ -44,7 +44,7 @@ const Home = () => {
   }
 
   return (
-    <Box sx={{ p: 3, background: "#f5f6fa", minHeight: "100vh" }}>
+    <Box sx={{ p: 3, minHeight: "100vh" }}>
       <Paper elevation={2} sx={{ p: 3, mb: 3, display: "flex", alignItems: "center", borderRadius: 3 }}>
         <Avatar sx={{ bgcolor: "#1976d2", mr: 2 }}>
           <Person />
