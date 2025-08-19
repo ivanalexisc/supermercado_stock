@@ -68,7 +68,7 @@ export default function ProductosPage() {
 
   const fetchProductos = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/productos", {
+      const response = await fetch("http://localhost:8080/api/productos", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -91,7 +91,7 @@ export default function ProductosPage() {
 
   const fetchCategorias = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/categorias", {
+      const response = await fetch("http://localhost:8080/api/categorias", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -106,52 +106,56 @@ export default function ProductosPage() {
     }
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
 
-    try {
-      const url = editingProduct ? `/api/productos/${editingProduct.id}` : "/api/productos"
-      const method = editingProduct ? "PUT" : "POST"
+  try {
+    const url = editingProduct ? `http://localhost:8080/api/productos/${editingProduct.id}` : "http://localhost:8080/api/productos"
+    const method = editingProduct ? "PUT" : "POST"
 
-      const response = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          ...formData,
-          precio: Number.parseFloat(formData.precio),
-          stock: Number.parseInt(formData.stock),
-          id_categoria: Number.parseInt(formData.id_categoria),
-        }),
-      })
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        ...formData,
+        precio: Number.parseFloat(formData.precio),
+        stock: Number.parseInt(formData.stock),
+        idCategoria: Number.parseInt(formData.id_categoria), // ✅ Cambiar a idCategoria
+      }),
+    })
 
-      if (response.ok) {
-        toast({
-          title: "Éxito",
-          description: editingProduct ? "Producto actualizado" : "Producto creado",
-        })
-        setIsDialogOpen(false)
-        resetForm()
-        fetchProductos()
-      } else {
-        throw new Error("Error al guardar producto")
-      }
-    } catch (error) {
+    if (response.ok) {
       toast({
-        title: "Error",
-        description: "No se pudo guardar el producto",
-        variant: "destructive",
+        title: "Éxito",
+        description: editingProduct ? "Producto actualizado" : "Producto creado",
       })
+      setIsDialogOpen(false)
+      resetForm()
+      fetchProductos()
+    } else {
+      // ✅ Mejorar el manejo de errores
+      const errorData = await response.text()
+      console.error('Error response:', errorData)
+      throw new Error(`Error ${response.status}: ${errorData}`)
     }
+  } catch (error) {
+    console.error('Error completo:', error)
+    toast({
+      title: "Error",
+      description: "No se pudo guardar el producto",
+      variant: "destructive",
+    })
   }
+}
 
   const handleDelete = async (id: number) => {
     if (!confirm("¿Estás seguro de que quieres eliminar este producto?")) return
 
     try {
-      const response = await fetch(`/api/productos/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/productos/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

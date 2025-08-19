@@ -42,7 +42,7 @@ export default function CategoriasPage() {
 
   const fetchCategorias = async () => {
     try {
-      const response = await fetch("/api/categorias", {
+      const response = await fetch("http://localhost:8080/api/categorias", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
