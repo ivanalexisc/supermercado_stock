@@ -55,10 +55,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const data = await response.json()
 
       localStorage.setItem("token", data.token)
-      localStorage.setItem("user", JSON.stringify(data.user))
+      localStorage.setItem("usuario", JSON.stringify(data.usuario))
 
       setToken(data.token)
-      setUser(data.user)
+      setUser(data.usuario)
 
       router.push("/dashboard")
     } catch (error) {
