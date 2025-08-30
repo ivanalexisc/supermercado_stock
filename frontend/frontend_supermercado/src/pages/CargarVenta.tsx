@@ -26,7 +26,7 @@ const CargarVenta = () => {
   const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/productos")
+    fetch("http://localhost:8080/api/productos")
       .then((res) => res.json())
       .then((data) => setProductos(data))
       .catch((error) => console.error("Error cargando productos:", error));
@@ -77,7 +77,7 @@ const CargarVenta = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3001/api/ventas", {
+      const res = await fetch("http://localhost:8080/api/ventas", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

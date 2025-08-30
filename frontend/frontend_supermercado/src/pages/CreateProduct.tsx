@@ -18,7 +18,7 @@ const CreateProduct = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/categorias")
+    fetch("http://localhost:8080/api/categorias")
       .then(res => res.json())
       .then(data => setCategorias(data))
       .catch(() => setCategorias([]));
@@ -37,7 +37,7 @@ const token = localStorage.getItem('token');
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3001/api/productos", {
+      const res = await fetch("http://localhost:8080/api/productos", {
         method: "POST",
         headers: {
            "Content-Type": "application/json",

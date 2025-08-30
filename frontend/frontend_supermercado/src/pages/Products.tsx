@@ -24,7 +24,7 @@ const Products = () => {
     if (!confirmar) return;
   
     try {
-      const response = await fetch(`http://localhost:3001/api/productos/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/productos/${id}`, {
         method: "DELETE",
       });
   
@@ -49,7 +49,7 @@ const Products = () => {
       setIsAdmin(parsedUser.es_admin === true);
     }
 
-    fetch("http://localhost:3001/api/productos")
+    fetch("http://localhost:8080/api/productos")
       .then((res) => res.json())
       .then((data) => {
         setProductos(data);

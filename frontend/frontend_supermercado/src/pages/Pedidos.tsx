@@ -27,7 +27,7 @@ const Pedidos = () => {
   const [modalMsg, setModalMsg] = useState<string>("");
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/pedidos")
+    fetch("http://localhost:8080/api/pedidos")
       .then((res) => res.json())
       .then((data: PedidoAPI[]) => {
         const pedidosFormateados: Pedido[] = data.map((p) => ({
@@ -50,7 +50,7 @@ const Pedidos = () => {
   // Función para cambiar estado con notificación y recarga
   const handleEstadoChange = async (id: number, nuevoEstado: string) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/pedidos/${id}/estado`, {
+      const res = await fetch(`http://localhost:8080/api/pedidos/${id}/estado`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ estado: nuevoEstado })
@@ -58,7 +58,7 @@ const Pedidos = () => {
       if (!res.ok) throw new Error('Error al actualizar el estado');
       setNotif({msg: `Pedido numero ${id} actualizado a "${estadoLabels[nuevoEstado] || nuevoEstado}"`, type: "success"});
       // Refresca la lista desde la base de datos
-      const pedidosRes = await fetch("http://localhost:3001/api/pedidos");
+      const pedidosRes = await fetch("http://localhost:8080/api/pedidos");
       const data: PedidoAPI[] = await pedidosRes.json();
       const pedidosFormateados: Pedido[] = data.map((p) => ({
         id: p.id,

@@ -11,7 +11,7 @@ const EditProduct = () => {
   const [notif, setNotif] = useState<{msg: string, type: "success"|"error"} | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/productos/${id}`)
+    fetch(`http://localhost:8080/api/productos/${id}`)
       .then((res) => res.json())
       .then((data) => setProducto(data))
       .catch((err) => console.error("Error al obtener el producto:", err));
@@ -51,7 +51,7 @@ const EditProduct = () => {
     e.preventDefault();
     if (!producto) return;
 
-    fetch(`http://localhost:3001/api/productos/${id}`, {
+    fetch(`http://localhost:8080/api/productos/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

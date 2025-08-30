@@ -19,7 +19,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:3001/dashboard/stats')
+    fetch('http://localhost:8080/dashboard/stats')
       .then(res => res.json())
       .then(data => {
         setStats(data);
